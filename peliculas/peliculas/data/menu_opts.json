@@ -1,0 +1,13 @@
+{
+    "nombreApp": "Componentes",
+    "rutas":[
+        {
+            "ruta": "home_screen",
+            "texto": "Home Screen"
+        },
+        {
+            "ruta": "details_screen",
+            "texto": "Details Screen"
+        }
+    ]
+}
