@@ -6,6 +6,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //String nombre = '';
+    final String movie = ModalRoute.of(context)?.settings.arguments.toString() ?? 'no-movie';
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Peliculas en cines'),

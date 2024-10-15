@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Peliculas',
       debugShowCheckedModeBanner: false,
-      initialRoute: 'home_screen',
+      initialRoute: 'details_screen',
       routes: getApplicationsRoutes(),
       theme: ThemeData.light().copyWith(appBarTheme: AppBarTheme(color: Colors.indigo)),
       //home
