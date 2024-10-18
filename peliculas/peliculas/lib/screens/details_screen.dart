@@ -14,10 +14,8 @@ class DetailsScreen extends StatelessWidget {
         SliverList(delegate: SliverChildListDelegate(
           [
             _PosterAndTitle(movie),
-            _Overview(),
-            _Overview(),
-            _Overview(),
-            CastingCards()
+            _Overview(movie),
+            CastingCards(movieId: movie.id)
           ]
           ))
       ],
@@ -111,12 +109,14 @@ class _PosterAndTitle extends StatelessWidget {
   }
 }
 class _Overview extends StatelessWidget {
+  final Result movie;
+  const _Overview(this.movie);
   //final textTheme = Theme.of(context).textTheme.subtitle1;
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Text('lowerddddddddddddddasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdaslowerddddddddddddddasdasdasdasdasdasdasdasdasdasdas', textAlign: TextAlign.center,),
+      child: Text(movie.overview, textAlign: TextAlign.center,),
     );
       }
 }
