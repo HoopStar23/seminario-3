@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
           child: Column(
           children: [
             CardSwiper(movies: movieProvider.onDisplayMovies),
-            MovieSlider(),
+            MovieSlider(movies: movieProvider.popularMovies, onNextPage:() => movieProvider.getPopularMovies()),
             ],
           ),
         ) 
