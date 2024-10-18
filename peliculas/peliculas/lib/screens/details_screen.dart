@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/models/models.dart';
 import 'package:peliculas/widgets/casting_cards.dart';
+
 
 class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Result movie = ModalRoute.of(context)!.settings.arguments as Result;
     return Scaffold(
         body: CustomScrollView(
       slivers: [
-        _CustomAppBar(),
+        _CustomAppBar(movie),
         SliverList(delegate: SliverChildListDelegate(
           [
-            _PosterAndTitle(),
+            _PosterAndTitle(movie),
             _Overview(),
             _Overview(),
             _Overview(),
@@ -23,6 +26,8 @@ class DetailsScreen extends StatelessWidget {
 }
 
 class _CustomAppBar extends StatelessWidget {
+  final Result movie;
+  const _CustomAppBar(this.movie);
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -33,27 +38,31 @@ class _CustomAppBar extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         title: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             width: double.infinity,
             alignment: Alignment.bottomCenter,
             color: Colors.black12,
             child: Text(
-              'movie.title',
-              style: TextStyle(fontSize: 16),
+              movie.title,
+              style: TextStyle(fontSize: 16, color: Colors.white),
             )),
         background: FadeInImage(
             fit: BoxFit.cover,
             placeholder: AssetImage('assets/no-image.png'),
             image: NetworkImage(
-                'https://th.bing.com/th/id/R.d9b27dfdff5a2a8182304ed921f7fe67?rik=iH9rCXLTvhfxYg&pid=ImgRaw&r=0')),
+                movie.fullBackdropPath)),
       ),
     );
   }
 }
 
 class _PosterAndTitle extends StatelessWidget {
+  final Result movie;
+  const _PosterAndTitle(this.movie);
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final size = MediaQuery.of(context).size;
 
     return Container(
       margin: EdgeInsets.only(top: 20),
@@ -64,34 +73,37 @@ class _PosterAndTitle extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               placeholder: AssetImage('assets/no-image.png'),
-              image: NetworkImage('https://th.bing.com/th/id/R.d9b27dfdff5a2a8182304ed921f7fe67?rik=iH9rCXLTvhfxYg&pid=ImgRaw&r=0'),
+              image: NetworkImage(movie.fullPosterImg),
               height: 150,
             ),
           ),
           SizedBox(width: 20),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'movie.title',
-                style: textTheme.bodyLarge,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-              Text(
-                'movie.originalTitle',
-                style: textTheme.bodySmall,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-              Row(
-                children: [
-                  Icon(Icons.star_outline),
-                  SizedBox(width: 5),
-                  Text('movie.voteAverage')
-                ],
-              )
-            ],
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: size.width - 190),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  movie.title,
+                  style: textTheme.bodyLarge,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
+                Text(
+                  movie.originalTitle,
+                  style: textTheme.bodySmall,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.star_outline),
+                    SizedBox(width: 5),
+                    Text(movie.title)
+                  ],
+                )
+              ],
+            ),
           )
         ],
       ),

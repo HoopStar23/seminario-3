@@ -41,7 +41,7 @@ class CardSwiper extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(20),
           ),
-          onTap: () => Navigator.pushNamed(context, 'details_screen'),
+          onTap: () => Navigator.pushNamed(context, 'details_screen', arguments: movie),
           ); 
         },),
     );
