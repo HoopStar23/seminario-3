@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:peliculas/models/models.dart';
 import 'package:peliculas/widgets/casting_cards.dart';
 
-
 class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -11,13 +10,12 @@ class DetailsScreen extends StatelessWidget {
         body: CustomScrollView(
       slivers: [
         _CustomAppBar(movie),
-        SliverList(delegate: SliverChildListDelegate(
-          [
-            _PosterAndTitle(movie),
-            _Overview(movie),
-            CastingCards(movieId: movie.id)
-          ]
-          ))
+        SliverList(
+            delegate: SliverChildListDelegate([
+          ClipRRect(child: Hero(tag: movie.uniqueId!, child: _PosterAndTitle(movie))),
+          _Overview(movie),
+          CastingCards(movieId: movie.id)
+        ]))
       ],
     ));
   }
@@ -47,8 +45,7 @@ class _CustomAppBar extends StatelessWidget {
         background: FadeInImage(
             fit: BoxFit.cover,
             placeholder: AssetImage('assets/no-image.png'),
-            image: NetworkImage(
-                movie.fullBackdropPath)),
+            image: NetworkImage(movie.fullBackdropPath)),
       ),
     );
   }
@@ -108,6 +105,7 @@ class _PosterAndTitle extends StatelessWidget {
     );
   }
 }
+
 class _Overview extends StatelessWidget {
   final Result movie;
   const _Overview(this.movie);
@@ -116,7 +114,10 @@ class _Overview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Text(movie.overview, textAlign: TextAlign.center,),
+      child: Text(
+        movie.overview,
+        textAlign: TextAlign.center,
+      ),
     );
-      }
+  }
 }

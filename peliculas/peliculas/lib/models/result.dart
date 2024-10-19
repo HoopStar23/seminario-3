@@ -15,6 +15,7 @@ class Result {
   bool video;
   double voteAverage;
   int voteCount;
+  String? uniqueId;
 
   Result({
     required this.adult,
@@ -31,6 +32,7 @@ class Result {
     required this.video,
     required this.voteAverage,
     required this.voteCount,
+    this.uniqueId,
   });
 
   get fullPosterImg {
