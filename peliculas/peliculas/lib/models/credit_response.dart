@@ -36,6 +36,8 @@ class Cast {
   int? order;
   String? department;
   String? job;
+  String? uniqueId;
+
 
   Cast({
     required this.adult,
@@ -52,6 +54,7 @@ class Cast {
     this.order,
     this.department,
     this.job,
+    this.uniqueId
   });
 
   get fullProfileImg {

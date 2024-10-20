@@ -28,7 +28,7 @@ class CastingCards extends StatelessWidget {
           width: double.infinity,
           height: 180,
           child: ListView.builder(
-            itemCount: 10,
+            itemCount: cast.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (_, int index) => _CastCard(cast[index])
           ),
@@ -39,35 +39,43 @@ class CastingCards extends StatelessWidget {
 }
 
 class _CastCard extends StatelessWidget {
-  final Cast act;
-  const _CastCard(this.act);
+  final Cast cast;
+  const _CastCard(this.cast);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      width: 110,
-      height: 100,
-      color: Colors.green,
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: FadeInImage(
-              placeholder: AssetImage('assets/no-image.png'),
-              image: NetworkImage(
-                  act.fullProfileImg),
-              width: 100,
-              height: 140,
-              fit: BoxFit.cover,
+    cast.uniqueId = '${cast.id}-card';
+    return GestureDetector(
+      child: ClipRRect(
+        child: Hero(
+          tag: cast.uniqueId!,
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            width: 110,
+            height: 100,
+            child: Column(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: FadeInImage(
+                    placeholder: AssetImage('assets/no-image.png'),
+                    image: NetworkImage(
+                        cast.fullProfileImg),
+                    width: 100,
+                    height: 140,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(cast.name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center)
+              ],
             ),
           ),
-          SizedBox(height: 5),
-          Text(act.name,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center)
-        ],
+        ),
       ),
+      onTap: () => Navigator.pushNamed(context, 'actor_details_screen', arguments: cast)
     );
   }
 }

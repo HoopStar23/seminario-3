@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:peliculas/helper/debouncer.dart';
+import 'package:peliculas/models/actor_response.dart';
 import 'package:peliculas/models/credit_response.dart';
 import 'package:peliculas/models/result.dart';
 import 'package:peliculas/models/now_playing_response.dart';
@@ -71,6 +72,13 @@ class MoviesProvider extends ChangeNotifier{
     moviesCast[movieId] = creditsResponse.cast;
 
     return creditsResponse.cast;
+  }
+
+  Future<ActorResponse> getActorDetails(int actorId) async{
+    final jsonData = await _getJsonData('3/person/$actorId');
+    final actorResponse = ActorResponse.fromJson(jsonData);
+    print(actorResponse.name);
+    return actorResponse;
   }
 
   Future<List<Result>> searchMovies(String query) async{

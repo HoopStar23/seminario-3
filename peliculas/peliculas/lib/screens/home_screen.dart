@@ -11,7 +11,6 @@ class HomePage extends StatelessWidget {
     //String nombre = '';
     //final String movie = ModalRoute.of(context)?.settings.arguments.toString() ?? 'no-movie';
     final movieProvider = Provider.of<MoviesProvider>(context, listen: true);
-    print(movieProvider.onDisplayMovies);
 
     return Scaffold(
         appBar: AppBar(

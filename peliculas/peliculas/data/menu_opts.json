@@ -8,6 +8,10 @@
         {
             "ruta": "details_screen",
             "texto": "Details Screen"
+        },
+        {
+            "ruta": "actor_details_screen",
+            "texto": "Actor Details Screen"
         }
     ]
 }
