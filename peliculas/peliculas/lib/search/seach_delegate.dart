@@ -69,7 +69,7 @@ class _MovieItem extends StatelessWidget {
         title: Text(movie.title),
         subtitle: Text(movie.originalTitle),
         onTap: () {
-          Navigator.pushNamed(context, 'details', arguments: movie);
+          Navigator.pushNamed(context, 'details_screen', arguments: movie);
         },
       ),
     );
