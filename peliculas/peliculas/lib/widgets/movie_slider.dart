@@ -34,7 +34,7 @@ class _MovieSliderState extends State<MovieSlider> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20)),
+          Padding(padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5)),
           Expanded(
               child: ListView.builder(
                   controller: scrollController,
@@ -67,7 +67,7 @@ class _MoviePoster extends StatelessWidget {
               child: Hero(
                 tag: movie.uniqueId!,
                 child: FadeInImage(
-                    placeholder: AssetImage('assets/no-image.png'),
+                    placeholder: AssetImage('assets/no-image.jpg'),
                     image: NetworkImage(movie.fullPosterImg)),
               ),
               borderRadius: BorderRadius.circular(20),

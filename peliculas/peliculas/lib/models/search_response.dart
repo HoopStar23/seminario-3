@@ -19,7 +19,7 @@ class SearchResponse {
     
     factory SearchResponse.fromMap(Map<String, dynamic> json) => SearchResponse(
         page: json["page"],
-        results: List<Result>.from(json["results"].map((x) => x)),
+        results: List<Result>.from(json["results"].map((x) => Result.fromMap(x))),
         totalPages: json["total_pages"],
         totalResults: json["total_results"],
     );

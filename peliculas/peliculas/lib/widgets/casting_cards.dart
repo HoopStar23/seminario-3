@@ -46,9 +46,7 @@ class _CastCard extends StatelessWidget {
     cast.uniqueId = '${cast.id}-card';
     return GestureDetector(
       child: ClipRRect(
-        child: Hero(
-          tag: cast.uniqueId!,
-          child: Container(
+        child: Container(
             margin: EdgeInsets.symmetric(horizontal: 10),
             width: 110,
             height: 100,
@@ -57,7 +55,7 @@ class _CastCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: FadeInImage(
-                    placeholder: AssetImage('assets/no-image.png'),
+                    placeholder: AssetImage('assets/no-image.jpg'),
                     image: NetworkImage(
                         cast.fullProfileImg),
                     width: 100,
@@ -65,7 +63,7 @@ class _CastCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(height: 5),
+                
                 Text(cast.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -73,9 +71,13 @@ class _CastCard extends StatelessWidget {
               ],
             ),
           ),
-        ),
       ),
-      onTap: () => Navigator.pushNamed(context, 'actor_details_screen', arguments: cast)
+      onTap: () async{
+        // Petición y guardamos en Cast
+        final actor = await MoviesProvider().getActorDetails(cast.id);
+        //si ha cargado, vamos a la siguiente pantalla y le pasamos la info del detalle completo del actor
+        Navigator.pushNamed(context, 'actor_details_screen', arguments: actor);
+      }
     );
   }
 }

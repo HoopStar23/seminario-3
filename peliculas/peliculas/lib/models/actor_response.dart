@@ -7,7 +7,7 @@ class ActorResponse {
     DateTime birthday;
     String? deathday;
     int gender;
-    String homepage;
+    String? homepage;
     int id;
     String imdbId;
     String knownForDepartment;
@@ -15,6 +15,8 @@ class ActorResponse {
     String placeOfBirth;
     double popularity;
     String profilePath;
+    String? uniqueId;
+
 
     ActorResponse({
         required this.adult,
@@ -23,7 +25,7 @@ class ActorResponse {
         required this.birthday,
         this.deathday,
         required this.gender,
-        required this.homepage,
+        this.homepage,
         required this.id,
         required this.imdbId,
         required this.knownForDepartment,
@@ -31,6 +33,7 @@ class ActorResponse {
         required this.placeOfBirth,
         required this.popularity,
         required this.profilePath,
+        this.uniqueId,
     });
 
       get fullActorImg {

@@ -22,8 +22,8 @@ class MoviesProvider extends ChangeNotifier{
   Map<int, List<Cast>> moviesCast = {};
   int _popularPage = 0;
 
-  final StreamController<List<Result>> _sugestionsStreamController = new StreamController.broadcast();
-  Stream<List<Result>> get suggestionStream => this._sugestionsStreamController.stream;
+  final StreamController<List<Result>> _sugestionsStreamController = StreamController.broadcast();
+  Stream<List<Result>> get suggestionStream => _sugestionsStreamController.stream;
 
   final debouncer = Debouncer(duration: Duration(milliseconds: 500));
 
@@ -36,11 +36,16 @@ class MoviesProvider extends ChangeNotifier{
   }
 
   Future<String> _getJsonData(String endpoint, [int page = 1]) async{
+    /*print('endpoint: $endpoint');
+    print('_apiKey: $_apikey');
+    print('_baseUrl: $_baseUrl');
+    print('page: $page');*/
     var url = Uri.https(_baseUrl, endpoint, {
       'api_key': _apikey,
       'language': _language,
       'page': '$page',
     });
+    
 
     final response = await http.get(url);
     return response.body;
@@ -61,6 +66,22 @@ class MoviesProvider extends ChangeNotifier{
     Future.delayed(Duration(milliseconds: 301)).then((_) => timer.cancel());
   }
 
+    Future<List<Result>> searchMovies(String query) async{
+    final url = Uri.https(_baseUrl, '3/search/movie',{
+      'api_key': _apikey,
+      'language': _language,
+      'query': query,
+      },
+    );
+
+    print('Buscando Peliculas: $query');
+
+    final response = await http.get(url);
+    final searchResponse = SearchResponse.fromJson(response.body);
+
+    return searchResponse.results;
+  }
+
   Future<List<Cast>> getMoviesCast(int movieId) async{
     print('Pidiendo info al server');
     
@@ -76,25 +97,11 @@ class MoviesProvider extends ChangeNotifier{
 
   Future<ActorResponse> getActorDetails(int actorId) async{
     final jsonData = await _getJsonData('3/person/$actorId');
+    print('Id actor: $actorId');
     final actorResponse = ActorResponse.fromJson(jsonData);
     print(actorResponse.name);
     return actorResponse;
-  }
-
-  Future<List<Result>> searchMovies(String query) async{
-    final url = Uri.https(_baseUrl, '3/search/movie',{
-      'api_key': _apikey,
-      'language': _language,
-      'query': query,
-      },
-    );
-
-    print('Buscando Peliculas: $query');
-
-    final response = await http.get(url);
-    final searchResponse = SearchResponse.fromJson(response.body);
-
-    return searchResponse.results;
+    //1253360
   }
 
   getOnDisplayMovies() async{

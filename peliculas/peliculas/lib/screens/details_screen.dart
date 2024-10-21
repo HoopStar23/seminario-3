@@ -44,7 +44,7 @@ class _CustomAppBar extends StatelessWidget {
             )),
         background: FadeInImage(
             fit: BoxFit.cover,
-            placeholder: AssetImage('assets/no-image.png'),
+            placeholder: AssetImage('assets/no-image.jpg'),
             image: NetworkImage(movie.fullBackdropPath)),
       ),
     );
@@ -67,7 +67,7 @@ class _PosterAndTitle extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
-              placeholder: AssetImage('assets/no-image.png'),
+              placeholder: AssetImage('assets/no-image.jpg'),
               image: NetworkImage(movie.fullPosterImg),
               height: 150,
             ),
@@ -94,7 +94,7 @@ class _PosterAndTitle extends StatelessWidget {
                   children: [
                     Icon(Icons.star_outline),
                     SizedBox(width: 5),
-                    Text(movie.title)
+                    Text(movie.voteAverage.toString())
                   ],
                 )
               ],
